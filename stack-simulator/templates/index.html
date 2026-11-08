@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Stack Simulator{% endblock %}
+
+{% block content %}
+<header class="page-header">
+  <p class="eyebrow">Data structures</p>
+  <h1>Stack Simulator</h1>
+  <p>Practice Last In, First Out (LIFO) with a simple stack.</p>
+  <p class="size">Items in stack: <strong>{{ size }}</strong> / 20</p>
+</header>
+
+<div class="row simulator">
+  <section class="col-md-4 operations">
+    <h2>Try an operation</h2>
+    <form action="{{ url_for('operate') }}" method="POST">
+      <label for="stack_data">Value</label>
+      <input id="stack_data" name="value" maxlength="24" class="form-control mb-2" placeholder="Example: 100" autocomplete="off">
+      <div class="d-grid gap-2">
+        <button type="submit" name="action" value="push" class="btn btn-success">Push</button>
+        <button type="submit" name="action" value="pop" class="btn btn-danger">Pop</button>
+        <button type="submit" name="action" value="peek" class="btn btn-warning">Peek</button>
+        <button type="submit" name="action" value="clear" class="btn btn-light">Clear</button>
+      </div>
+    </form>
+  </section>
+
+  <section id="stack" class="col-md-4 stack-area">
+    <h2>Stack</h2>
+    <p class="panel-description">The top item is removed first.</p>
+    {% for item in items|reverse %}
+      <div class="stack-item {% if loop.first and highlight %}peek{% endif %}">
+        {% if loop.first %}<small>TOP</small>{% endif %}
+        {{ item }}
+        {% if loop.last %}<small>BOTTOM</small>{% endif %}
+      </div>
+    {% else %}
+      <p class="empty-state">The stack is empty.</p>
+    {% endfor %}
+    {% if items %}
+      <p class="stack-hint">Top: last item added &middot; Bottom: first item added</p>
+    {% endif %}
+  </section>
+
+  <section id="popped" class="col-md-4 popped-area">
+    <h2>Removed items</h2>
+    {% for item in popped %}
+      <div class="stack-item removed">{{ item }}</div>
+    {% else %}
+      <p class="empty-state">Nothing removed yet.</p>
+    {% endfor %}
+  </section>
+</div>
+{% endblock %}
