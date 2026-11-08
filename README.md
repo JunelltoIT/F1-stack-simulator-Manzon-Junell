@@ -1,30 +1,48 @@
 # Flask Stack and Queue Simulators
 
-This repository contains two independent Flask data-structure demonstrations:
+**Name:** Junell Manzon
+**Section:** BSIT WMT 4-2
 
-- `stack-simulator/` demonstrates **Last In, First Out (LIFO)** with Push, Pop,
-  Peek, and Clear.
-- The repository root demonstrates **First In, First Out (FIFO)** with Enqueue,
-  Dequeue, Peek, and Clear.
+This repository contains two independent Flask applications that demonstrate
+LIFO stack and FIFO queue operations.
 
-## Run the queue simulator
+## Requirements
 
-```powershell
-python -m pip install -r requirements.txt
-python app.py
-```
+- Python 3.9 or newer
+- Flask (`python -m pip install -r requirements.txt`)
 
-Open `http://127.0.0.1:5000` in a browser.
+## Stack Simulator
 
-## Run the stack simulator
-
-Open a second terminal and run:
+From the repository root, run:
 
 ```powershell
 cd stack-simulator
-python -m pip install -r ..\requirements.txt
 python app.py
 ```
 
-Open `http://127.0.0.1:5000` after stopping the queue simulator, or configure a
-different Flask port when running both applications at the same time.
+Open [http://127.0.0.1:5001](http://127.0.0.1:5001/).
+
+Use **Push**, **Pop**, **Peek**, and **Clear** to operate on the stack. The top
+item is shown first; popped values appear in the removed-items area.
+
+## Queue Simulator
+
+From the repository root, run:
+
+```powershell
+python app.py
+```
+
+Open [http://127.0.0.1:5000](http://127.0.0.1:5000/).
+
+Use **Enqueue**, **Dequeue**, **Peek**, and **Clear** to operate on the queue.
+Values are displayed from **Front** to **Rear**; dequeued values appear in the
+removed-items area.
+
+Both apps keep data in the browser's signed Flask session. Set the `SECRET_KEY`
+environment variable to use a persistent secret key across restarts; otherwise,
+a random development key is generated when the app starts.
+
+Each app accepts nonblank values up to 24 characters and limits the structure
+to 20 values. The removed-items history keeps the 20 most recent removals and
+is reset by Clear.
